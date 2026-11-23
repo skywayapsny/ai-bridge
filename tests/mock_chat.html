@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>mock chat</title></head>
+<body>
+<!-- Детерминированный чат для e2e browser_brain: "стримит" ответ по
+     символам, показывает #busy во время генерации. Промпт эхом
+     возвращается после префикса, чтобы проверить проброс текста. -->
+<textarea id="prompt"></textarea>
+<button id="send"></button>
+<div id="busy" hidden></div>
+<div id="chat"></div>
+<script>
+document.querySelector('#send').addEventListener('click', () => {
+  const text = document.querySelector('#prompt').value;
+  const div = document.createElement('div');
+  div.className = 'response';
+  document.querySelector('#chat').appendChild(div);
+  const busy = document.querySelector('#busy');
+  busy.hidden = false;
+  const full = 'MOCK-ANSWER: ' + text;
+  let i = 0;
+  const t = setInterval(() => {
+    div.innerText = full.slice(0, ++i);
+    if (i >= full.length) { clearInterval(t); busy.hidden = true; }
+  }, 40);
+});
+</script>
+</body>
+</html>

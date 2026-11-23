@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-bridge"
+version = "2.2.0"
+description = "Local OpenAI-compatible bridge for debugging AI apps with controlled responses"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{name = "skywayapsny"}]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Operating System :: POSIX",
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+    "pydantic>=2.0",
+    "websocket-client>=1.8",
+]
+
+[project.urls]
+Repository = "https://github.com/skywayapsny/ai-bridge"
+
+[project.optional-dependencies]
+test = ["httpx>=0.27"]
+
+[project.scripts]
+ai-bridge = "aibridge.server:main"
+ai-bridge-worker = "aibridge.worker:main"
+ai-bridge-agent = "aibridge.agent:main"
+ai-bridge-poll = "aibridge.poll:main"
+ai-bridge-browser = "aibridge.browser_brain:main"
+
+[tool.setuptools]
+packages = ["aibridge"]
+
+[tool.setuptools.package-data]
+aibridge = ["adapters/*.json"]

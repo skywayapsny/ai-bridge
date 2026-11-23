@@ -1,0 +1,9 @@
+{
+  "url": "https://gemini.google.com/app",
+  "ready_js": "return !!document.querySelector('.ql-editor[contenteditable=\"true\"], div[contenteditable=\"true\"]');",
+  "send_js": "\n    const ed = document.querySelector('.ql-editor[contenteditable=\"true\"], div[contenteditable=\"true\"]');\n    if (!ed) return 'ERR:no input';\n    ed.focus();\n    document.execCommand('selectAll', false);\n    document.execCommand('insertText', false, PROMPT);\n    await new Promise(r => setTimeout(r, 400));\n    const btn = document.querySelector('button.send-button, button[aria-label*=\"Send\" i], button[aria-label*=\"Отправ\" i]');\n    if (btn && !btn.disabled) { btn.click(); }\n    else {\n      ed.dispatchEvent(new KeyboardEvent('keydown', {key:'Enter', code:'Enter', bubbles:true}));\n      ed.dispatchEvent(new KeyboardEvent('keyup', {key:'Enter', code:'Enter', bubbles:true}));\n    }\n    return 'sent';\n",
+  "extract_js": "\n    const els = document.querySelectorAll(\n      'model-response .model-response-text, model-response structured-content-container, model-response .response-content, model-response');\n    if (!els.length) return '';\n    const last = els[els.length - 1];\n    const t = ((last.innerText || '').trim() || (last.textContent || '').trim());\n    return t.replace(/^Gemini said\\s*/i, '').trim();\n",
+  "busy_js": "\n    return !!(document.querySelector('button[aria-label*=\"Stop\" i], .stop-button')\n      || document.querySelector('.loading-indicator:not(.ng-hide)'));\n  ",
+  "reset_js": "\n    location.assign('https://gemini.google.com/app');\n    return 'navigated';\n",
+  "name": "gemini"
+}

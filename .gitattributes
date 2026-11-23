@@ -1,0 +1,7 @@
+# Local installation notes and legacy integration helpers stay out of source archives.
+/AGENTS.md export-ignore
+/brain_claim.py export-ignore
+/claim_wait.sh export-ignore
+/renewd.py export-ignore
+/respond.py export-ignore
+/tests/llm_shim.mjs export-ignore

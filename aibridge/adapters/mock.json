@@ -1,0 +1,10 @@
+{
+  "url": "http://127.0.0.1:18923/mock_chat.html",
+  "_comment": "тестовая страница tests/mock_chat.html (e2e). Подними: python3 -m http.server 18923 --directory tests",
+  "ready_js": "return !!document.querySelector('#prompt');",
+  "send_js": "document.querySelector('#prompt').value = PROMPT; document.querySelector('#send').click(); return 'sent';",
+  "extract_js": "const r = document.querySelectorAll('.response'); if (!r.length) return ''; return r[r.length - 1].innerText.trim();",
+  "busy_js": "const b = document.querySelector('#busy'); return !!(b && !b.hidden);",
+  "reset_js": "document.querySelectorAll('.response').forEach(e => e.remove()); return 'reset';",
+  "name": "mock"
+}

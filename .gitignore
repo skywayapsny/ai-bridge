@@ -1,0 +1,37 @@
+# Секреты — никогда в репозиторий
+.env
+.env.*
+!.env.example
+
+# Runtime-состояние — очередь запросов/ответов
+queue/
+queue_*/
+
+# Профиль браузера (aquarium) — куки, кэш, токены сайтов;
+# сами cdp_bridge.py/aq.py/start_aquarium.sh — исходники, трекаются
+aquarium/profile/
+aquarium/shots/
+aquarium/__pycache__/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Логи запуска
+*.log
+
+# Build products and test caches
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+
+# Private deployment notes and legacy local wrappers
+/AGENTS.md
+/brain_claim.py
+/claim_wait.sh
+/renewd.py
+/respond.py
+/tests/llm_shim.mjs

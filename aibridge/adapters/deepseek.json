@@ -1,0 +1,9 @@
+{
+  "url": "https://chat.deepseek.com/",
+  "ready_js": "return !!document.querySelector('textarea#chat-input, textarea[placeholder], textarea');",
+  "send_js": "\n    const ta = document.querySelector('textarea#chat-input, textarea[placeholder], textarea');\n    if (!ta) return 'ERR:no input';\n    ta.focus();\n    Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').set.call(ta, PROMPT);\n    ta.dispatchEvent(new Event('input', {bubbles: true}));\n    await new Promise(r => setTimeout(r, 300));\n    ta.dispatchEvent(new KeyboardEvent('keydown', {key:'Enter', code:'Enter', keyCode:13, which:13, bubbles:true, cancelable:true}));\n    ta.dispatchEvent(new KeyboardEvent('keyup', {key:'Enter', code:'Enter', keyCode:13, which:13, bubbles:true}));\n    return 'sent';\n  ",
+  "extract_js": "\n    const els = document.querySelectorAll('.ds-markdown, .markdown-body, [class*=\"markdown\"]');\n    if (!els.length) return '';\n    return (els[els.length - 1].innerText || '').trim();\n  ",
+  "busy_js": "\n    return !!(document.querySelector('[class*=\"loading\"]:not([class*=\"hidden\"]), [class*=\"stop\"], .ds-loading')\n      || document.querySelector('button[aria-label*=\"Stop\" i]'));\n  ",
+  "reset_js": "location.href = 'https://chat.deepseek.com/'; return 'navigated';",
+  "name": "deepseek"
+}

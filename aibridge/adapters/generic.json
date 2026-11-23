@@ -1,0 +1,9 @@
+{
+  "url": "",
+  "_comment": "запасной для произвольного чат-UI; url задай в файле или через свой --adapter",
+  "ready_js": "return !!(document.querySelector('textarea') || document.querySelector('[contenteditable=\"true\"]'));",
+  "send_js": "\n    const ed = document.querySelector('textarea') || document.querySelector('[contenteditable=\"true\"]');\n    if (!ed) return 'ERR:no input';\n    ed.focus();\n    if (ed.tagName === 'TEXTAREA' || ed.tagName === 'INPUT') {\n      const proto = ed.tagName === 'TEXTAREA' ? HTMLTextAreaElement.prototype : HTMLInputElement.prototype;\n      Object.getOwnPropertyDescriptor(proto, 'value').set.call(ed, PROMPT);\n      ed.dispatchEvent(new Event('input', {bubbles: true}));\n    } else {\n      document.execCommand('insertText', false, PROMPT);\n    }\n    await new Promise(r => setTimeout(r, 300));\n    ed.dispatchEvent(new KeyboardEvent('keydown', {key:'Enter', code:'Enter', keyCode:13, which:13, bubbles:true, cancelable:true}));\n    return 'sent';\n  ",
+  "extract_js": "\n    const els = document.querySelectorAll('.markdown, .message-content, [class*=\"response\"], [class*=\"answer\"], [class*=\"assistant\"], article');\n    if (!els.length) return '';\n    return (els[els.length - 1].innerText || '').trim();\n  ",
+  "busy_js": "return !!document.querySelector('button[aria-label*=\"Stop\" i], [class*=\"stop\"], [class*=\"loading\"]:not([class*=\"hidden\"])');",
+  "name": "generic"
+}

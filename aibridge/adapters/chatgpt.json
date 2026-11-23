@@ -1,0 +1,9 @@
+{
+  "url": "https://chatgpt.com/",
+  "ready_js": "return !!document.querySelector('#prompt-textarea, div[contenteditable=\"true\"]');",
+  "send_js": "\n    const ed = document.querySelector('#prompt-textarea, div[contenteditable=\"true\"]');\n    if (!ed) return 'ERR:no input';\n    ed.focus();\n    document.execCommand('insertText', false, PROMPT);\n    await new Promise(r => setTimeout(r, 400));\n    const btn = document.querySelector('button[data-testid=\"send-button\"], button[aria-label*=\"Send\" i], button[aria-label*=\"Отправ\" i]');\n    if (btn && !btn.disabled) { btn.click(); }\n    else {\n      ed.dispatchEvent(new KeyboardEvent('keydown', {key:'Enter', code:'Enter', bubbles:true}));\n      ed.dispatchEvent(new KeyboardEvent('keyup', {key:'Enter', code:'Enter', bubbles:true}));\n    }\n    return 'sent';\n  ",
+  "extract_js": "\n    const arts = document.querySelectorAll('[data-message-author-role=\"assistant\"], article .markdown.prose, .agent-turn');\n    if (!arts.length) return '';\n    const last = arts[arts.length - 1];\n    const md = last.querySelector('.markdown') || last;\n    return (md.innerText || '').trim();\n  ",
+  "busy_js": "\n    return !!(document.querySelector('button[data-testid*=\"stop\" i], button[aria-label*=\"Stop\" i], button[aria-label*=\"Останов\" i]')\n      || document.querySelector('.result-streaming, [class*=\"streaming\"]'));\n  ",
+  "reset_js": "\n    const a = document.querySelector('a[href=\"/\"], button[aria-label*=\"New chat\" i], [data-testid*=\"new-chat\" i]');\n    if (a) { a.click(); return 'reset'; }\n    location.href = 'https://chatgpt.com/';\n    return 'navigated';\n  ",
+  "name": "chatgpt"
+}
